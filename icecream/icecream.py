@@ -326,6 +326,8 @@ class IceCreamDebugger:
         frameInfo = inspect.getframeinfo(callFrame)
         lineNumber = frameInfo.lineno
         parentFunction = frameInfo.function
+        # get the parent class name if it exists
+        parentFunction = executing.Source.executing(callFrame).code_qualname()
 
         filepath = (realpath if self.contextAbsPath else basename)(frameInfo.filename)
         return filepath, lineNumber, parentFunction
